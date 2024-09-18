@@ -1,4 +1,6 @@
 import "./App.css";
+import CourseList from "./components/CourseList";
+
 const courses = [
   {
     id: 1,
@@ -36,7 +38,14 @@ const courses = [
 
 
 function App() {
-  return <h1 className="">01-CourseList-project: starter file</h1>;
+  return(
+    <div>
+      <h1>my Courses(3)</h1>
+      <CourseList/>
+      <CourseList/>
+    </div>
+  );
 }
 
 export default App;
+
