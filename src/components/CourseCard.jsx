@@ -1,17 +1,17 @@
 function CourseCard({course}){
     return(
         <div className="course-item">
-        <div className="course-item__img">
-          <img src={course.imageUrl} alt={course.title} />
-        </div>
-        <div className="course-item__detail">
-          <CourseCardBody 
+          <div className="course-item__img">
+            <img src={course.imageUrl} alt={course.title} />
+          </div>
+          <div className="course-item__detail">
+            <CourseCardBody 
             title={course.title}
             description={course.description}
             rate={course.rate}
-           />
-          <CourseCardFooter course={course}/> 
-        </div>
+            />
+            <CourseCardFooter course={course}/> 
+          </div>
         </div>
     )
 }
@@ -31,12 +31,17 @@ function CourseCardBody({title,description,rate}) {
 
 
 function CourseCardFooter({course}) {
+  const startedAt=new Date(course.start).toLocaleDateString("en-US",
+    {month:"short",
+    year:"numeric",
+    day:"numeric",
+    });
   return (
     <div className="course-item__footer">
       <div className="tags">
         {
-          course.tags.map((t)=> ( 
-          <span key={t} className="badge badge--secondary">
+          course.tags.map((index)=> ( 
+          <span key={index} className="badge badge--secondary">
             Frontend
             </span>
             ))
@@ -45,13 +50,18 @@ function CourseCardFooter({course}) {
       </div>
       <div className="caption">
         <div className="date">
-          {new Date(course.start).toLocaleDateString("en-US",
-            {month:"short",
-            year:"numeric",
-            day:"numeric",
-            })}
+          {startedAt}
         </div>
-        <p className="badge badge--primary">{course.status}</p>
+        <span className={`badge ${
+          course.status=="Active"
+          ?"badge--primary"
+          :course.status=="Upcoming"
+          ?"badge--danger"
+          :"badge--secondary"
+
+        }`}>
+          {course.status}
+        </span>
       </div>       
     </div>
   )
